@@ -1,0 +1,2 @@
+# TypeScriptProject
+Some school project
