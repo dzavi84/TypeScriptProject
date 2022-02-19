@@ -3,8 +3,8 @@ class ProjectInput {
   hostElement: HTMLDivElement;
   element: HTMLFormElement;
   titleInputElement: HTMLInputElement;
-  descriptionInputElement: HTMLInputElement;
-  peopleInputElement: HTMLInputElement;
+  descriptionInputElement?: HTMLInputElement;
+  peopleInputElement?: HTMLInputElement;
 
   constructor() {
     // const templateEl=document.getElementById('project-input');
