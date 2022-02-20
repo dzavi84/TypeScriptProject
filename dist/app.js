@@ -1,5 +1,4 @@
 "use strict";
-// autobind decorator
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9,6 +8,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+function validate(validatableInput) {
+    let isValid = true;
+    if (validatableInput.required) {
+        isValid = isValid && validatableInput.value.toString().trim().length !== 0;
+    }
+    if (validatableInput.minLength != null &&
+        typeof validatableInput.value === 'string') {
+        isValid =
+            isValid && validatableInput.value.length >= validatableInput.minLength;
+    }
+    if (validatableInput.maxLength != null &&
+        typeof validatableInput.value === 'string') {
+        isValid =
+            isValid && validatableInput.value.length <= validatableInput.maxLength;
+    }
+    if (validatableInput.min != null &&
+        typeof validatableInput.value === 'number') {
+        isValid = isValid && validatableInput.value >= validatableInput.min;
+    }
+    if (validatableInput.max != null &&
+        typeof validatableInput.value === 'number') {
+        isValid = isValid && validatableInput.value <= validatableInput.max;
+    }
+    return isValid;
+}
+// autobind decorator
 function autobind(_, _2, descriptor) {
     const originalMethod = descriptor.value;
     const ajdDescriptor = {
@@ -43,9 +68,28 @@ class ProjectInput {
         const enteredTitle = this.titleInputElement.value;
         const enteredDescription = this.descriptionInputElement.value;
         const enteredPeople = this.peopleInputElement.value;
-        if (enteredTitle.trim().length === 0 ||
-            enteredDescription.trim().length === 0 ||
-            enteredPeople.trim().length === 0) {
+        const titleValidable = {
+            value: enteredTitle,
+            required: true,
+        };
+        const descriptionValidable = {
+            value: enteredDescription,
+            required: true,
+            minLength: 5,
+        };
+        const peopleValidable = {
+            value: +enteredPeople,
+            required: true,
+            min: 1,
+            max: 5,
+        };
+        if (
+        // enteredTitle.trim().length === 0 ||
+        // enteredDescription.trim().length === 0 ||
+        // enteredPeople.trim().length === 0
+        !validate(titleValidable) ||
+            !validate(descriptionValidable) ||
+            !validate(peopleValidable)) {
             alert('Invalid input please try again!');
             return;
         }
