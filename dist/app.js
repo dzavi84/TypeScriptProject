@@ -8,66 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-function validate(validatableInput) {
-    let isValid = true;
-    if (validatableInput.required) {
-        isValid = isValid && validatableInput.value.toString().trim().length !== 0;
-    }
-    if (validatableInput.minLength != null &&
-        typeof validatableInput.value === 'string') {
-        isValid =
-            isValid && validatableInput.value.length >= validatableInput.minLength;
-    }
-    if (validatableInput.maxLength != null &&
-        typeof validatableInput.value === 'string') {
-        isValid =
-            isValid && validatableInput.value.length <= validatableInput.maxLength;
-    }
-    if (validatableInput.min != null &&
-        typeof validatableInput.value === 'number') {
-        isValid = isValid && validatableInput.value >= validatableInput.min;
-    }
-    if (validatableInput.max != null &&
-        typeof validatableInput.value === 'number') {
-        isValid = isValid && validatableInput.value <= validatableInput.max;
-    }
-    return isValid;
-}
 // autobind decorator
 function autobind(_, _2, descriptor) {
-    const originalMethod = descriptor.value;
-    const ajdDescriptor = {
+    const originalMetod = descriptor.value;
+    const adjDescriptor = {
         configurable: true,
         get() {
-            const boundFn = originalMethod.bind(this);
+            const boundFn = originalMetod.bind(this);
             return boundFn;
         },
     };
-    return ajdDescriptor;
+    return adjDescriptor;
 }
-// ProjectList Class
-class ProjectList {
-    constructor(type) {
-        this.type = type;
-        this.templateElement = document.getElementById('project-list');
-        this.hostElement = document.getElementById('app');
-        const importedNode = document.importNode(this.templateElement.content, true);
-        this.element = importedNode.firstElementChild;
-        this.element.id = `${this.type}-projects`;
-        this.attach();
-        this.renderContent();
-    }
-    renderContent() {
-        const listId = `${this.type}-project-list`;
-        this.element.querySelector('ul').id = listId;
-        this.element.querySelector('h2').textContent =
-            this.type.toUpperCase() + 'PROJECTS';
-    }
-    attach() {
-        this.hostElement.insertAdjacentElement('beforeend', this.element);
-    }
-}
-// ProjectInput Class
+// project input class
 class ProjectInput {
     constructor() {
         // const templateEl=document.getElementById('project-input');
@@ -86,55 +39,11 @@ class ProjectInput {
         this.configure();
         this.attach();
     }
-    gatherUserInput() {
-        const enteredTitle = this.titleInputElement.value;
-        const enteredDescription = this.descriptionInputElement.value;
-        const enteredPeople = this.peopleInputElement.value;
-        const titleValidable = {
-            value: enteredTitle,
-            required: true,
-        };
-        const descriptionValidable = {
-            value: enteredDescription,
-            required: true,
-            minLength: 5,
-        };
-        const peopleValidable = {
-            value: +enteredPeople,
-            required: true,
-            min: 1,
-            max: 5,
-        };
-        if (
-        // enteredTitle.trim().length === 0 ||
-        // enteredDescription.trim().length === 0 ||
-        // enteredPeople.trim().length === 0
-        !validate(titleValidable) ||
-            !validate(descriptionValidable) ||
-            !validate(peopleValidable)) {
-            alert('Invalid input please try again!');
-            return;
-        }
-        else {
-            return [enteredTitle, enteredDescription, +enteredPeople];
-        }
-    }
-    clearInput() {
-        this.titleInputElement.value = '';
-        this.descriptionInputElement.value = '';
-        this.peopleInputElement.value = '';
-    }
     submitHandler(event) {
         event.preventDefault();
-        const userInput = this.gatherUserInput();
-        if (Array.isArray(userInput)) {
-            const [title, desc, people] = userInput;
-            console.log(title, desc, people);
-            this.clearInput();
-        }
+        console.log(this.titleInputElement.value);
     }
     configure() {
-        // this.element.addEventListener('submit', this.submitHandler.bind(this));
         this.element.addEventListener('submit', this.submitHandler);
     }
     attach() {
@@ -148,5 +57,3 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProjectInput.prototype, "submitHandler", null);
 const prjInput = new ProjectInput();
-const activePrjList = new ProjectList('active');
-const activePrjList1 = new ProjectList('finished');
