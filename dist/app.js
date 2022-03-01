@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 //project State management
 class ProjectState {
     constructor() {
+        this.listeners = [];
         this.project = [];
     }
     static getInstance() {
@@ -28,6 +29,12 @@ class ProjectState {
             people: numOfPeople,
         };
         this.project.push(newProject);
+        for (const listenerFn of this.listeners) {
+            listenerFn(this.project.slice());
+        }
+    }
+    addListener(listenerFn) {
+        this.listeners.push(listenerFn);
     }
 }
 const projectState = ProjectState.getInstance();
@@ -77,11 +84,24 @@ class Project {
         this.type = type;
         this.templateElement = document.getElementById('project-list');
         this.hostElement = document.getElementById('app');
+        this.assignedProject = [];
         const importedNode = document.importNode(this.templateElement.content, true);
         this.element = importedNode.firstElementChild;
         this.element.id = `${this.type}-projects`;
+        projectState.addListener((project) => {
+            this.assignedProject = project;
+            this.renderProject();
+        });
         this.attach();
         this.renderContent();
+    }
+    renderProject() {
+        const listEl = document.getElementById(`${this.type}-project-list`);
+        for (const prjItem of this.assignedProject) {
+            const listItem = document.createElement('li');
+            listItem.textContent = prjItem.title;
+            listEl.appendChild(listItem);
+        }
     }
     renderContent() {
         const listId = `${this.type}-project-list`;
@@ -153,6 +173,7 @@ class ProjectInput {
         if (Array.isArray(userInput)) {
             const [title, desc, people] = userInput;
             projectState.addProject(title, desc, people);
+            this.clearForm();
         }
     }
     configure() {
