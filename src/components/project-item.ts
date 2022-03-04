@@ -1,7 +1,8 @@
-import { Draggable } from '../models/drag-drop-interface';
-import { Project } from '../models/project-model';
+import { Draggable } from '../models/drag-drop';
+import { Project } from '../models/project';
+import Component from './base-component';
 import { autobind } from '../decorators/autobind';
-import Component from './base-components';
+
 // ProjectItem Class
 export class ProjectItem
   extends Component<HTMLUListElement, HTMLLIElement>
@@ -24,18 +25,20 @@ export class ProjectItem
     this.configure();
     this.renderContent();
   }
+
   @autobind
-  dragStartHendler(event: DragEvent): void {
+  dragStartHandler(event: DragEvent) {
     event.dataTransfer!.setData('text/plain', this.project.id);
     event.dataTransfer!.effectAllowed = 'move';
   }
-  dragEndHendler(_: DragEvent): void {
+
+  dragEndHandler(_: DragEvent) {
     console.log('DragEnd');
   }
 
   configure() {
-    this.element.addEventListener('dragstart', this.dragStartHendler);
-    this.element.addEventListener('dragend', this.dragEndHendler);
+    this.element.addEventListener('dragstart', this.dragStartHandler);
+    this.element.addEventListener('dragend', this.dragEndHandler);
   }
 
   renderContent() {

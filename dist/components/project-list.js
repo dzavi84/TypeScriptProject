@@ -4,9 +4,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { ProjectStatus } from '../models/project-model';
+import { ProjectStatus } from '../models/project';
+import Component from './base-component';
 import { autobind } from '../decorators/autobind';
-import Component from './base-components';
 import { projectState } from '../state/project-state';
 import { ProjectItem } from './project-item';
 export class ProjectList extends Component {
@@ -28,7 +28,7 @@ export class ProjectList extends Component {
         const prjId = event.dataTransfer.getData('text/plain');
         projectState.moveProject(prjId, this.type === 'active' ? ProjectStatus.Active : ProjectStatus.Finished);
     }
-    dragLeaveHandler(_3) {
+    dragLeaveHandler(_) {
         const listEl = this.element.querySelector('ul');
         listEl.classList.remove('droppable');
     }

@@ -1,4 +1,4 @@
-import { Project, ProjectStatus } from '../models/project-model';
+import { Project, ProjectStatus } from '../models/project';
 class State {
     constructor() {
         this.listeners = [];
@@ -23,9 +23,6 @@ export class ProjectState extends State {
         const newProject = new Project(Math.random().toString(), title, description, numOfPeople, ProjectStatus.Active);
         this.projects.push(newProject);
         this.updateListeners();
-        for (const listenerFn of this.listeners) {
-            listenerFn(this.projects.slice());
-        }
     }
     moveProject(projectId, newStatus) {
         const project = this.projects.find((prj) => prj.id === projectId);

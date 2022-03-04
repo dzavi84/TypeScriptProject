@@ -1,11 +1,11 @@
-import { DragTarget } from '../models/drag-drop-interface';
-import { Project, ProjectStatus } from '../models/project-model';
+import { DragTarget } from '../models/drag-drop';
+import { Project, ProjectStatus } from '../models/project';
+import Component from './base-component';
 import { autobind } from '../decorators/autobind';
-import Component from './base-components';
 import { projectState } from '../state/project-state';
 import { ProjectItem } from './project-item';
 
-// ProjectList Cl
+// ProjectList Class
 export class ProjectList
   extends Component<HTMLDivElement, HTMLElement>
   implements DragTarget
@@ -19,6 +19,7 @@ export class ProjectList
     this.configure();
     this.renderContent();
   }
+
   @autobind
   dragOverHandler(event: DragEvent) {
     if (event.dataTransfer && event.dataTransfer.types[0] === 'text/plain') {
@@ -27,6 +28,7 @@ export class ProjectList
       listEl.classList.add('droppable');
     }
   }
+
   @autobind
   dropHandler(event: DragEvent) {
     const prjId = event.dataTransfer!.getData('text/plain');
@@ -35,11 +37,13 @@ export class ProjectList
       this.type === 'active' ? ProjectStatus.Active : ProjectStatus.Finished,
     );
   }
+
   @autobind
-  dragLeaveHandler(_3: DragEvent) {
+  dragLeaveHandler(_: DragEvent) {
     const listEl = this.element.querySelector('ul')!;
     listEl.classList.remove('droppable');
   }
+
   configure() {
     this.element.addEventListener('dragover', this.dragOverHandler);
     this.element.addEventListener('dragleave', this.dragLeaveHandler);

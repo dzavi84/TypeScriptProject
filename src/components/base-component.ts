@@ -1,4 +1,7 @@
 // Component Base Class
+
+export const something = '...';
+
 export default abstract class Component<
   T extends HTMLElement,
   U extends HTMLElement,
