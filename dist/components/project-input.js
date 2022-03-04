@@ -7,12 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from './base-components.js';
-import { validate } from '../util/validation.js';
-import { autobind } from '../decorators/autobind.js';
+import Cmp from './base-components.js';
+import * as Validation from '../util/validation.js';
+import { autobind as Autobind } from '../decorators/autobind.js';
 import { projectState } from '../state/project-state.js';
 // ProjectInput Class
-export class ProjectInput extends Component {
+export class ProjectInput extends Cmp {
     constructor() {
         super('project-input', 'app', true, 'user-input');
         this.titleInputElement = this.element.querySelector('#title');
@@ -43,9 +43,9 @@ export class ProjectInput extends Component {
             min: 1,
             max: 5,
         };
-        if (!validate(titleValidatable) ||
-            !validate(descriptionValidatable) ||
-            !validate(peopleValidatable)) {
+        if (!Validation.validate(titleValidatable) ||
+            !Validation.validate(descriptionValidatable) ||
+            !Validation.validate(peopleValidatable)) {
             alert('Invalid input, please try again!');
             return;
         }
@@ -69,7 +69,7 @@ export class ProjectInput extends Component {
     }
 }
 __decorate([
-    autobind,
+    Autobind,
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Event]),
     __metadata("design:returntype", void 0)

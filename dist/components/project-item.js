@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { autobind } from '../decorators/autobind.js';
-import { Component } from './base-components.js';
+import Component from './base-components.js';
 // ProjectItem Class
 export class ProjectItem extends Component {
     constructor(hostId, project) {

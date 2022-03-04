@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { ProjectStatus } from '../models/project-model.js';
 import { autobind } from '../decorators/autobind.js';
-import { Component } from './base-components.js';
+import Component from './base-components.js';
 import { projectState } from '../state/project-state.js';
 import { ProjectItem } from './project-item.js';
 // ProjectList Class
