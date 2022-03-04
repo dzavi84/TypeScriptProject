@@ -1,4 +1,5 @@
 namespace App {
+  //drag and drop
   export interface Draggable {
     dragStartHendler(event: DragEvent): void;
     dragEndHendler(event: DragEvent): void;
