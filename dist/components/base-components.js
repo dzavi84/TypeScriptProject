@@ -1,4 +1,3 @@
-// Component Base Class
 export default class Component {
     constructor(templateId, hostElementId, insertAtStart, newElementId) {
         this.templateElement = document.getElementById(templateId);
@@ -14,3 +13,4 @@ export default class Component {
         this.hostElement.insertAdjacentElement(insertAtBeginning ? 'afterbegin' : 'beforeend', this.element);
     }
 }
+//# sourceMappingURL=base-components.js.map

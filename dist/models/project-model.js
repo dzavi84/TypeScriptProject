@@ -1,4 +1,3 @@
-// Project Type
 export var ProjectStatus;
 (function (ProjectStatus) {
     ProjectStatus[ProjectStatus["Active"] = 0] = "Active";
@@ -13,3 +12,4 @@ export class Project {
         this.status = status;
     }
 }
+//# sourceMappingURL=project-model.js.map
