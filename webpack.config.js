@@ -1,14 +1,19 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+var webpack = require('webpack');
 module.exports = {
     mode: 'development',
     entry: './src/app.ts',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
+        publicPath: 'dist',
     },
-    plugins: [new HtmlWebpackPlugin()],
+    plugins: [
+        new HtmlWebpackPlugin(),
+        new webpack.EnvironmentPlugin({ NODE_ENV: 'production' }),
+    ],
+
     mode: 'production',
     devtool: 'inline-source-map',
     module: {
