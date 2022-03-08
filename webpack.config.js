@@ -9,10 +9,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         publicPath: 'dist',
     },
-    plugins: [
-        new HtmlWebpackPlugin(),
-        new webpack.EnvironmentPlugin({ NODE_ENV: 'production' }),
-    ],
+    plugins: [new HtmlWebpackPlugin()],
 
     mode: 'production',
     devtool: 'inline-source-map',
